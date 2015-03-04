@@ -9,7 +9,7 @@ class LocationsStore
     @locations ||= begin
       # Fetch all locations from the model, sorting by the creation date.
       request = NSFetchRequest.alloc.init
-      request.entity = NSEntityDescription.entityForName('Location', inManagedObjectContext:@context)
+      request.entity = NSEntityDescription.entityForName('Whereabout', inManagedObjectContext:@context)
       request.sortDescriptors = [NSSortDescriptor.alloc.initWithKey('creation_date', ascending:false)] 
 
       error_ptr = Pointer.new(:object)
@@ -22,8 +22,8 @@ class LocationsStore
   end
 
   def add_location
-    # Yield a blank, newly created Location entity, then save the model.
-    yield NSEntityDescription.insertNewObjectForEntityForName('Location', inManagedObjectContext:@context)
+    # Yield a blank, newly created Whereabout entity, then save the model.
+    yield NSEntityDescription.insertNewObjectForEntityForName('Whereabout', inManagedObjectContext:@context)
     save
   end
 
@@ -36,12 +36,12 @@ class LocationsStore
   private
 
   def initialize
-    # Create the model programmatically. Our model has only one entity, the Location class, and the data will be stored in a SQLite database, inside the application's Documents folder.
+    # Create the model programmatically. Our model has only one entity, the Whereabout class, and the data will be stored in a SQLite database, inside the application's Documents folder.
     model = NSManagedObjectModel.alloc.init
-    model.entities = [Location.entity]
+    model.entities = [Whereabout.entity]
 
     store = NSPersistentStoreCoordinator.alloc.initWithManagedObjectModel(model)
-    store_url = NSURL.fileURLWithPath(File.join(NSHomeDirectory(), 'Documents', 'Locations.sqlite'))
+    store_url = NSURL.fileURLWithPath(File.join(NSHomeDirectory(), 'Documents', 'Whereabouts.sqlite'))
     error_ptr = Pointer.new(:object)
     unless store.addPersistentStoreWithType(NSSQLiteStoreType, configuration:nil, URL:store_url, options:nil, error:error_ptr)
       raise "Can't add persistent SQLite store: #{error_ptr[0].description}"

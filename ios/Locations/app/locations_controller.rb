@@ -30,7 +30,7 @@ class LocationsController < UITableViewController
       end
     end
     LocationsStore.shared.add_location do |location|
-      # We set up our new Location object here.
+      # We set up our new Whereabout object here.
       coordinate = @location_manager.location.coordinate
       location.creation_date = NSDate.date
       location.latitude = coordinate.latitude
