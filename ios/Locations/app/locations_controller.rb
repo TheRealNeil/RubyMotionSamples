@@ -21,6 +21,14 @@ class LocationsController < UITableViewController
   end
 
   def addLocation
+    BW::Location.get_once(desired_accuracy: :three_kilometers) do |result|
+      if result.is_a?(CLLocation)
+        p result.coordinate.latitude
+        p result.coordinate.longitude
+      else
+        p "ERROR: #{result[:error]}"
+      end
+    end
     LocationsStore.shared.add_location do |location|
       # We set up our new Location object here.
       coordinate = @location_manager.location.coordinate
