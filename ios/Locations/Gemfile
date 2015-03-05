@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+
+gem 'rake'
+# Add your dependencies here:
+gem "bubble-wrap", "~> 1.7.1", :require => ['bubble-wrap/reactor, bubble-wrap/location']
+# gem 'bubble-wrap', :git => 'https://github.com/rubymotion/BubbleWrap.git', :require => ['bubble-wrap/reactor, bubble-wrap/location']
